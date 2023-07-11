@@ -31,7 +31,7 @@ const OnboardingScreen = ({ navigation }) => {
         <Text style={styles.title}>NFT Crypto Art</Text>
         <TouchableOpacity
         activeOpacity={0.7}
-        onPress={() => navigation.navigate('HomeScreen')}
+        onPress={() => navigation.replace('HomeScreen')}
         style={styles.btn}>
           <Text style={{color: COLORS.black, fontWeight: 'bold'  }}>Start</Text>
         </TouchableOpacity>
