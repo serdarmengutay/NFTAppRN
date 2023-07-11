@@ -11,6 +11,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
     <View
       style={{
         flexDirection: "row",
+        elevation: 15,
         padding: 20,
         backgroundColor: COLORS.white,
         borderTopWidth: 0.3,
@@ -26,7 +27,7 @@ const CustomTabBar = ({ state, descriptors, navigation }) => {
         return (
           <TouchableOpacity
           onPress={() => navigation.navigate(route.name)}
-            style={{ flex: 1, justifyContent: "center", alignItems: "center" }}
+            style={{ flex: 1, justifyContent: "center", alignItems: "center", }}
           >
             <TabBarIcon
               size={30}
