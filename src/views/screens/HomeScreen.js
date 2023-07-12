@@ -20,7 +20,10 @@ const { width } = Dimensions.get("window");
 
 const Card = ({ data, navigation }) => {
   return (
-    <TouchableOpacity activeOpacity={0.8} style={styles.card}>
+    <TouchableOpacity 
+    
+    onPress={() => navigation.navigate('DetailsScreen', data)}
+    activeOpacity={0.7} style={styles.card}>
       <Icon
         name="heart-outline"
         size={28}
@@ -49,10 +52,40 @@ const Card = ({ data, navigation }) => {
           </Text>
         </View>
         <View style={styles.cardBtn}>
-          <Text style={{ color: COLORS.white, fontSize: 10, fontWeight:'bold'}}>Buy Now</Text>
+          <Text
+            style={{ color: COLORS.white, fontSize: 10, fontWeight: "bold" }}
+          >
+            Buy Now
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
+  );
+};
+
+const TrendingCard = ({ data }) => {
+  return (
+    <View style={styles.trendingCard}>
+      <Image
+        style={{
+          height: 80,
+          width: "100%",
+          borderTopLeftRadius: 10,
+          borderTopRightRadius: 10,
+        }}
+        source={data.image}
+      />
+      <View style={{ height: 70, width: '100%', alignItems: 'center'}}>
+        <Image 
+        style={styles.creatorImage}
+        source={data.creatorImage}
+        />
+        <View style={{flexDirection: 'row', alignItems: 'center', top: -20}}>
+          <Text style={{fontWeight: 'bold', color: COLORS.black,marginRight: 2}}>{data.creator}</Text>
+          <Icon name="check-decagram" color={COLORS.violet}/>
+        </View>
+      </View>
+    </View>
   );
 };
 
@@ -85,11 +118,24 @@ const HomeScreen = ({ navigation }) => {
       <ScrollView>
         <Text style={styles.title}>Top NFTS</Text>
         <FlatList
+        keyExtractor={(index) => index.id}
+          snapToInterval={width * 0.55}
+          decelerationRate="fast"
           horizontal
           showsHorizontalScrollIndicator={false}
           contentContainerStyle={{ paddingRight: 20, paddingBottom: 20 }}
           renderItem={({ item }) => (
             <Card data={item} navigation={navigation} />
+          )}
+          data={collections}
+        />
+        <Text style={styles.title}>Trending collections</Text>
+        <FlatList
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={{ paddingRight: 20, paddingBottom: 20 }}
+          renderItem={({ item }) => (
+            <TrendingCard data={item} navigation={navigation} />
           )}
           data={collections}
         />
@@ -150,9 +196,30 @@ const styles = StyleSheet.create({
     width: 70,
     height: 30,
     backgroundColor: COLORS.violet,
-    justifyContent: 'center',
-    alignItems: 'center',
-    borderRadius: 8
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: 8,
+    marginLeft: 20,
+  },
+  trendingCard: {
+    height: 150,
+    width: 180,
+    backgroundColor: COLORS.white,
+    borderRadius: 20,
+    elevation: 10,
+    shadowColor: COLORS.grey,
+    shadowRadius: 10,
+    shadowOffset: { height: 10 },
+    shadowOpacity: 0.2,
+    marginLeft: 20
+  },
+  creatorImage: {
+    height: 45,
+    width: 45,
+    borderWidth: 3,
+    borderColor: COLORS.white,
+    borderRadius: 45,
+    top: -20 
   }
 });
 export default HomeScreen;
